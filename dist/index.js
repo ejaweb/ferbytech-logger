@@ -28,6 +28,7 @@ class FerbyTechLogger {
         this.recording = false;
         this.logLevels = ["info", "warn", "error", "debug"];
         if (options.file) {
+            /* istanbul ignore else  */
             if (!fs.existsSync(options.file.dir)) {
                 fs.mkdirSync(options.file.dir);
             }

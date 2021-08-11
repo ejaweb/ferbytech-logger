@@ -20,6 +20,7 @@ export class FerbyTechLogger {
 
     constructor(private readonly options: FerbyTechLoggerOptions) {
         if (options.file) {
+            /* istanbul ignore else  */
             if (!fs.existsSync(options.file.dir)) {
                 fs.mkdirSync(options.file.dir);
             }

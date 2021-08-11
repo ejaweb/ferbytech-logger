@@ -2,7 +2,7 @@ import rimraf from "rimraf";
 import { FerbyTechLogger } from "../src/index";
 
 describe("should work", () => {
-    const logDirectory = `${__dirname}/logs`;
+    const logDirectory = `logs`;
 
     beforeAll(() => {
         rimraf.sync(logDirectory);
@@ -22,9 +22,8 @@ describe("should work", () => {
     });
 
     it("should validate file log levels", () => {
-        const fileOptions = { dir: logDirectory, logName: "myLog" };
-        const loggerOptions = { console: false, file: fileOptions };
-        const logger = new FerbyTechLogger(loggerOptions);
+        const fileOptions = { dir: logDirectory, logName: "FerbyTechLogger" };
+        const logger = new FerbyTechLogger({ console: false, file: fileOptions });
 
         logger.setRecording(true);
         expect(() => logger.setLogLevel("FAIL")).toThrow();
