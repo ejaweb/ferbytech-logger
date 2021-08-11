@@ -24,18 +24,43 @@ const fs = __importStar(require("fs"));
 class FerbyTechLogger {
     constructor(options) {
         this.options = options;
+        this.history = [];
+        this.recording = false;
         this.logLevels = ["info", "warn", "error", "debug"];
-        if (!fs.existsSync(options.dir)) {
-            fs.mkdirSync(options.dir);
+        if (options.file) {
+            if (!fs.existsSync(options.file.dir)) {
+                fs.mkdirSync(options.file.dir);
+            }
+            this.writeStream = fs.createWriteStream(`${options.file.dir}/${options.file.logName}.json`);
         }
-        this.writeStream = fs.createWriteStream(`${options.dir}/${options.logName}.json`);
     }
     write(json, level) {
+        if (typeof json !== "object") {
+            json = { message: json };
+        }
         if (!process.env.LOG_LEVEL || process.env.LOG_LEVEL.toLowerCase() === level) {
             json.level = level;
             json.timestamp = new Date();
-            this.writeStream.write(JSON.stringify(json) + "\n");
+            const logMessage = JSON.stringify(json);
+            if (this.options.console) {
+                console[level](logMessage);
+            }
+            if (this.writeStream) {
+                this.writeStream.write(logMessage + "\n");
+            }
+            if (this.recording) {
+                this.history.push(logMessage);
+            }
         }
+    }
+    getHistory() {
+        return this.history;
+    }
+    clearHistory() {
+        this.history.splice(0, this.history.length);
+    }
+    setRecording(active) {
+        this.recording = active;
     }
     setLogLevel(level) {
         const lvl = level.toLowerCase();
