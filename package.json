@@ -1,0 +1,29 @@
+{
+  "name": "ferbytech-logger",
+  "version": "1.0.0",
+  "description": "FerbyTech Logger",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "author": "FerbyTech, LLC",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.1",
+    "@types/jest": "^27.0.0",
+    "@types/node": "^16.4.14",
+    "@types/rimraf": "^3.0.1",
+    "jest": "^27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  }
+}
