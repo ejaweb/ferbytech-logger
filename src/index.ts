@@ -14,7 +14,7 @@ export interface FerbyTechLoggerOptions {
 
 export class FerbyTechLogger {
     private history: string[] = [];
-    private recording: boolean = false;
+    private recordHistoryFlag: boolean = false;
     private writeStream: fs.WriteStream | undefined;
     private logLevels = ["info", "warn", "error", "debug"];
 
@@ -48,7 +48,7 @@ export class FerbyTechLogger {
                 this.writeStream.write(logMessage + "\n");
             }
 
-            if (this.recording) {
+            if (this.recordHistoryFlag) {
                 this.history.push(logMessage);
             }
         }
@@ -62,8 +62,8 @@ export class FerbyTechLogger {
         this.history.splice(0, this.history.length);
     }
 
-    setRecording(active: boolean) {
-        this.recording = active;
+    recordHistory(active: boolean) {
+        this.recordHistoryFlag = active;
     }
 
     setLogLevel(level: string) {
