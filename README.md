@@ -1,7 +1,5 @@
 # FerbyTech Logger
-Typescript Node.js logging library with zero dependencies.
-
-Written in TypeScript w/ 100% code coverage.
+Typescript logging library for Node.js (Zero Dependencies).
 
 ## Installation
 ```bash

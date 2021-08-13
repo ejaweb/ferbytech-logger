@@ -1,6 +1,6 @@
 {
   "name": "ferbytech-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "FerbyTech Logger",
   "author": "FerbyTech, LLC",
   "license": "MIT",
@@ -12,6 +12,10 @@
     "url": "https://github.com/ejaweb/ferbytech-logger/issues"
   },
   "homepage": "https://github.com/ejaweb/ferbytech-logger#readme",
+  "keywords": [
+    "typescript",
+    "logger"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
