@@ -2,6 +2,16 @@
   "name": "ferbytech-logger",
   "version": "1.0.0",
   "description": "FerbyTech Logger",
+  "author": "FerbyTech, LLC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ejaweb/ferbytech-logger.git"
+  }, 
+  "bugs": {
+    "url": "https://github.com/ejaweb/ferbytech-logger/issues"
+  },
+  "homepage": "https://github.com/ejaweb/ferbytech-logger#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,8 +24,6 @@
     "node": ">=14",
     "npm": ">=6"
   },
-  "author": "FerbyTech, LLC",
-  "license": "MIT",
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",
     "@types/jest": "^27.0.0",

@@ -19,13 +19,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FerbyTechLogger = void 0;
 const fs = __importStar(require("fs"));
 class FerbyTechLogger {
     constructor(options) {
         this.options = options;
         this.history = [];
-        this.recording = false;
+        this.recordHistoryFlag = false;
         this.logLevels = ["info", "warn", "error", "debug"];
         if (options.file) {
             /* istanbul ignore else */
@@ -49,7 +48,7 @@ class FerbyTechLogger {
             if (this.writeStream) {
                 this.writeStream.write(logMessage + "\n");
             }
-            if (this.recording) {
+            if (this.recordHistoryFlag) {
                 this.history.push(logMessage);
             }
         }
@@ -60,8 +59,8 @@ class FerbyTechLogger {
     clearHistory() {
         this.history.splice(0, this.history.length);
     }
-    setRecording(active) {
-        this.recording = active;
+    recordHistory(active) {
+        this.recordHistoryFlag = active;
     }
     setLogLevel(level) {
         const lvl = level.toLowerCase();
@@ -83,4 +82,4 @@ class FerbyTechLogger {
         this.write(json, this.logLevels[3]);
     }
 }
-exports.FerbyTechLogger = FerbyTechLogger;
+exports.default = FerbyTechLogger;

@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-export type json = {
+type json = {
     [k: string]: any;
 };
 
@@ -12,7 +12,7 @@ export interface FerbyTechLoggerOptions {
     };
 }
 
-export class FerbyTechLogger {
+export default class FerbyTechLogger {
     private history: string[] = [];
     private recordHistoryFlag: boolean = false;
     private writeStream: fs.WriteStream | undefined;

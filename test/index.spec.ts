@@ -1,5 +1,5 @@
 import rimraf from "rimraf";
-import { FerbyTechLogger } from "../src/index";
+import FerbyTechLogger from "../src/index";
 
 describe("should work", () => {
     const logDirectory = `logs`;
