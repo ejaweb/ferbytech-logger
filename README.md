@@ -1,13 +1,18 @@
 # FerbyTech Logger
-Node.js logging library with zero dependencies.
+Typescript Node.js logging library with zero dependencies.
 
 Written in TypeScript w/ 100% code coverage.
 
+## Installation
+```bash
+$ npm install ferbytech-logger
+```
+
 ## Usage
 ```js
-import FerbyTechLogger from "ferbytech-logger"
+import { FerbyTechLogger, FerbyTechLoggerOptions } from "ferbytech-logger";
 
-const options: FerbyTechLoggerOptions {
+const options: FerbyTechLoggerOptions = {
     console: true,
     file: {
         dir: "logs",
