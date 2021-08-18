@@ -25,7 +25,13 @@ class FerbyTechLogger {
         this.options = options;
         this.history = [];
         this.recordHistoryFlag = false;
-        this.logLevels = ["info", "warn", "error", "debug"];
+        this.logLevels = ["debug", "info", "warn", "error"];
+        this.logGroups = {
+            1: [this.logLevels[0], this.logLevels[1], this.logLevels[2], this.logLevels[3]],
+            2: [this.logLevels[1], this.logLevels[2], this.logLevels[3]],
+            3: [this.logLevels[2], this.logLevels[3]],
+            4: [this.logLevels[3]],
+        };
         if (options.file) {
             /* istanbul ignore else */
             if (!fs.existsSync(options.file.dir)) {
@@ -38,20 +44,27 @@ class FerbyTechLogger {
         if (typeof json !== "object") {
             json = { message: json };
         }
-        if (!process.env.LOG_LEVEL || process.env.LOG_LEVEL.toLowerCase() === level) {
+        if (this.validateLogLevel(level)) {
             json.level = level;
-            json.timestamp = new Date();
-            const logMessage = JSON.stringify(json);
+            if (this.options.timestamp) {
+                json.timestamp = new Date();
+            }
             if (this.options.console) {
-                console[level](logMessage);
+                console[level](json);
             }
             if (this.writeStream) {
-                this.writeStream.write(logMessage + "\n");
+                this.writeStream.write(JSON.stringify(json) + "\n");
             }
             if (this.recordHistoryFlag) {
-                this.history.push(logMessage);
+                this.history.push(json);
             }
         }
+    }
+    validateLogLevel(level) {
+        if (process.env.LOG_GROUP && this.logGroups[process.env.LOG_GROUP]) {
+            return this.logGroups[process.env.LOG_GROUP].includes(level);
+        }
+        return !process.env.LOG_LEVEL || process.env.LOG_LEVEL.toLowerCase() === level;
     }
     getHistory() {
         return this.history;
@@ -69,16 +82,22 @@ class FerbyTechLogger {
         }
         process.env.LOG_LEVEL = lvl;
     }
-    info(json) {
-        this.write(json, this.logLevels[0]);
-    }
-    warn(json) {
-        this.write(json, this.logLevels[1]);
-    }
-    error(json) {
-        this.write(json, this.logLevels[2]);
+    setLogGroup(group) {
+        if (!this.logGroups[group]) {
+            throw new Error(`Supported log groups (${Object.keys(this.logGroups)})`);
+        }
+        process.env.LOG_GROUP = group;
     }
     debug(json) {
+        this.write(json, this.logLevels[0]);
+    }
+    info(json) {
+        this.write(json, this.logLevels[1]);
+    }
+    warn(json) {
+        this.write(json, this.logLevels[2]);
+    }
+    error(json) {
         this.write(json, this.logLevels[3]);
     }
 }
