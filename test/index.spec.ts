@@ -2,7 +2,7 @@ import rimraf from "rimraf";
 import FerbyTechLogger from "../src/index";
 
 describe("should work", () => {
-    const logDirectory = `logs`;
+    const logDirectory = "logs";
 
     beforeAll(() => {
         rimraf.sync(logDirectory);
@@ -23,7 +23,7 @@ describe("should work", () => {
     });
 
     it("should test file log levels and history", () => {
-        const fileOptions = { dir: logDirectory, logName: "FerbyTechLogger" };
+        const fileOptions = { dir: logDirectory, logName: "ferbyTechLogger" };
         const logger = new FerbyTechLogger({ console: false, file: fileOptions });
 
         logger.recordHistory(true);
