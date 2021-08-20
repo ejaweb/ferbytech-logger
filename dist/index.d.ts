@@ -1,32 +1,42 @@
 declare type json = {
     [k: string]: any;
 };
-export interface FerbyTechLoggerOptions {
+export interface FTLFileOptions {
+    dir: string;
+    logName: string;
+    dailyRotate?: boolean;
+}
+export interface FTLOptions {
     console: boolean;
-    file?: {
-        dir: string;
-        logName: string;
-    };
+    consoleColors?: boolean;
+    file?: FTLFileOptions;
     timestamp?: boolean;
 }
-export default class FerbyTechLogger {
+export declare class FerbyTechLogger {
     private readonly options;
     private history;
+    private cachedDate;
     private recordHistoryFlag;
     private writeStream;
     private logLevels;
     private logGroups;
-    constructor(options: FerbyTechLoggerOptions);
+    private colorsByLevel;
+    constructor(options: FTLOptions);
+    private initWriteStream;
+    private validateLogLevel;
     private write;
-    validateLogLevel(level: string): any;
+    formatDate(date: Date): string;
+    getCachedDate(): number;
+    shouldRotate(): boolean | undefined;
     getHistory(): json[];
-    clearHistory(): void;
-    recordHistory(active: boolean): void;
-    setLogLevel(level: string): void;
-    setLogGroup(group: string): void;
-    debug(json: json | string): void;
-    info(json: json | string): void;
-    warn(json: json | string): void;
-    error(json: json | string): void;
+    clearHistory(): this;
+    recordHistory(active: boolean): this;
+    setLogLevel(level: string): this;
+    setLogGroup(group: string): this;
+    debug(json: json | string): this;
+    info(json: json | string): this;
+    warn(json: json | string): this;
+    error(json: json | string): this;
+    log(json: json | string): this;
 }
 export {};
